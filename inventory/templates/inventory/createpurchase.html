@@ -1,0 +1,12 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'posindex' %}">Go Back</a>
+<h1>Complete Purchase?</h1>
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Complete Purchase">
+</form>
+
+{% endblock %}

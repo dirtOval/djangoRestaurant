@@ -1,0 +1,12 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'inventoryindex' %}">Go Back</a>
+<h1>Create New Requirement?</h1>
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Create">
+</form>
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "inventory/base.html" %}
+
+{% block content %}
+<h3>Daily Revenue: ${{revenue}}</h3>
+<a href="{% url 'posindex' %}">POS</a>
+<br>
+<a href="{% url 'inventoryindex' %}">Inventory</a>
+{% endblock %}

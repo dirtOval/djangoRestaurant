@@ -1,0 +1,14 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'home' %}">Go Back</a>
+<br>
+<h4>Daily Revenue: ${{revenue}}</h4>
+<br>
+<h3>Menu Items</h3>
+{% for item in menuitem_list %}
+    <a href="{% url 'poscreatepurchase' item.id %}"> {{item.name}} </a>
+    <br>
+
+{% endfor %}
+{% endblock %}

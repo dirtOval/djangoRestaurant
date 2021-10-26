@@ -1,0 +1,18 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'inventoryindex' %}">Go Back</a>
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Update">
+</form>
+<h3>Recipe Requirements:</h3>
+{% for req in recipe_requirement_list %}
+<span>{{req.ingredient}} - {{req.quantity}} {{req.ingredient.unit}}</span>
+<a href="{% url 'reciperequirementupdate' req.id %}">Edit</a>
+<br>
+{% endfor %}
+<br>
+<a href="{% url 'reciperequirementcreate' pk %}">Add Requirement</a>
+{% endblock %}

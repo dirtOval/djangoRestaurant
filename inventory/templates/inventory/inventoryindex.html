@@ -1,0 +1,23 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'home' %}">Go Back</a>
+<br>
+<h3>Ingredients:</h3>
+{% for ingredient in ingredient_list %}
+<a href="{% url 'ingredientupdate' ingredient.id %}">{{ingredient.name}}</a>
+<span>- {{ingredient.quantity}} {{ingredient.unit}}</span>
+<br>
+{% endfor %}
+<p>------------------</p>
+<a href="{% url 'ingredientcreate' %}">Create New</a>
+
+<br>
+<h3>Menu Items:</h3>
+{% for item in menu_item_list %}
+<a href="{% url 'menuitemupdate' item.id %}">{{item.name}}</a>
+<br>
+{% endfor %}
+<p>------------------</p>
+<a href="{% url 'menuitemcreate' %}">Create New</a>
+{% endblock %}

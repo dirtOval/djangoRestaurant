@@ -1,0 +1,12 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'updatemenuitem' %}">Go Back</a>
+<h3>Update {{ingredient.name}}?</h3>
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <input type="submit" value="Update">
+</form>
+
+{% endblock %}
