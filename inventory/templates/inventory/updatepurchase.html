@@ -1,12 +1,11 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
-<a href="{% url 'menuitemupdate' reciperequirement.menu_item.id %}">Go Back</a>
-<h3>Update {{ingredient.name}}?</h3>
+<a href="{% url 'purchaseindex' %}">Go Back</a>
+<h3>Modify {{purchase.item}} purchase on {{purchase.timestamp}}?</h3>
 <form action="" method="POST">
     {%csrf_token%}
     {{form.as_p}}
     <input type="submit" value="Update">
 </form>
-
 {% endblock %}

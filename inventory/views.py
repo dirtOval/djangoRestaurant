@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
 from .forms import PurchaseCreateForm, IngredientUpdateForm, MenuItemCreateForm, RecipeRequirementCreateForm
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 # Create your views here.
 
@@ -27,6 +27,25 @@ class POSCreateView(CreateView):
     success_message = "Purchase completed!"
     success_url = reverse_lazy("posindex")
     template_name = "inventory/createpurchase.html"
+
+    def get_initial(self):
+        
+        initial_base= super(POSCreateView, self).get_initial()
+        initial_base['item'] = MenuItem.objects.get(id=self.kwargs['pk'])
+        return initial_base
+
+class PurchaseListView(ListView):
+    model = Purchase
+    queryset = Purchase.objects.all().order_by("-timestamp")
+    template_name = "inventory/purchaseindex.html"
+    context_object_name = 'purchase_list'
+
+class PurchaseUpdateView(UpdateView):
+    model = Purchase
+    form_class = PurchaseCreateForm
+    template_name = "inventory/updatepurchase.html"
+    success_message = "Purchase Updated!"
+    success_url = reverse_lazy("purchaseindex")
 
 class InventoryListView(ListView):
     model = Ingredient
@@ -55,6 +74,12 @@ class IngredientCreateView(CreateView):
     success_url = reverse_lazy("inventoryindex")
     template_name = "inventory/createingredient.html"
 
+class IngredientDeleteView(DeleteView):
+    model = Ingredient
+    success_message = "Ingredient Deleted!"
+    success_url = reverse_lazy("inventoryindex")
+    template_name = "inventory/deleteingredient.html"
+
 class MenuItemUpdateView(UpdateView):
     model = MenuItem
     form_class = MenuItemCreateForm
@@ -81,9 +106,24 @@ class RecipeRequirementCreateView(CreateView):
     success_url = reverse_lazy("inventoryindex")
     template_name = "inventory/createreciperequirement.html"
 
+    def get_context_data(self, **kwargs):
+        kwargs['pk'] = self.kwargs['pk']
+        return super(RecipeRequirementCreateView, self).get_context_data(**kwargs)
+
+    def get_initial(self):
+        initial_base = super(RecipeRequirementCreateView, self).get_initial()
+        initial_base['menu_item'] = MenuItem.objects.get(id=self.kwargs['pk'])
+        return initial_base
+
 class RecipeRequirementUpdateView(UpdateView):
     model = RecipeRequirement
     form_class = RecipeRequirementCreateForm
     success_message = "Recipe Requirement Updated!"
-    success_url = reverse_lazy("menuitemupdate")
+    success_url = reverse_lazy("inventoryindex")
     template_name = "inventory/updatereciperequirement.html"
+
+class RecipeRequirementDeleteView(DeleteView):
+    model = RecipeRequirement
+    success_message = "Recipe Requirement Deleted!"
+    success_url = reverse_lazy("inventoryindex")
+    template_name = "inventory/deletereciperequirement.html"

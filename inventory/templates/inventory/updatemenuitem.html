@@ -10,7 +10,8 @@
 <h3>Recipe Requirements:</h3>
 {% for req in recipe_requirement_list %}
 <span>{{req.ingredient}} - {{req.quantity}} {{req.ingredient.unit}}</span>
-<a href="{% url 'reciperequirementupdate' req.id %}">Edit</a>
+<a href="{% url 'reciperequirementupdate' pk req.id %}">Edit</a>
+<a href="{% url 'reciperequirementdelete' pk req.id %}">Delete</a>
 <br>
 {% endfor %}
 <br>

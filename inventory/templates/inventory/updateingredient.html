@@ -8,5 +8,9 @@
     {{form.as_p}}
     <input type="submit" value="Update">
 </form>
+<br>
+<a href="{% url 'ingredientdelete' ingredient.id %}">
+    <button>Delete</button>
+</a>
 
 {% endblock %}

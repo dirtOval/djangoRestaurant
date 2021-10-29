@@ -1,0 +1,12 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'posindex' %}">Go Back</a>
+<br>
+<h3>Purchases:</h3>
+{% for purchase in purchase_list %}
+<span> {{purchase.item}} {{purchase.timestamp}} -- ${{purchase.item.price|floatformat:2 }} </span>
+<a href="{% url 'purchaseupdate' purchase.id %}">Edit</a>
+<br>
+{% endfor %}
+{% endblock %}
