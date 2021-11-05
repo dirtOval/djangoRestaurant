@@ -8,6 +8,7 @@ urlpatterns = [
     path("pos/purchase/index/", views.PurchaseListView.as_view(), name="purchaseindex"),
     path("pos/<pk>/purchase/", views.POSCreateView.as_view(), name="poscreatepurchase"),
     path("pos/purchase/<pk>/update/", views.PurchaseUpdateView.as_view(), name="purchaseupdate"),
+    path("pos/purchase/<pk>/delete/", views.PurchaseDeleteView.as_view(), name="purchasedelete"),
     path("inventory/index/", views.InventoryListView.as_view(), name="inventoryindex"),
     path("inventory/ingredient/<pk>/update/", views.IngredientUpdateView.as_view(), name="ingredientupdate"),
     path("inventory/ingredient/create/", views.IngredientCreateView.as_view(), name="ingredientcreate"),

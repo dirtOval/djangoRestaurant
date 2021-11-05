@@ -7,6 +7,7 @@
 {% for purchase in purchase_list %}
 <span> {{purchase.item}} {{purchase.timestamp}} -- ${{purchase.item.price|floatformat:2 }} </span>
 <a href="{% url 'purchaseupdate' purchase.id %}">Edit</a>
+<a href="{% url 'purchasedelete' purchase.id %}">Delete</a>
 <br>
 {% endfor %}
 {% endblock %}

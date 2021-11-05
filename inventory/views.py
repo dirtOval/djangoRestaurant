@@ -4,6 +4,8 @@ from .forms import PurchaseCreateForm, IngredientUpdateForm, MenuItemCreateForm,
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django.contrib import messages
 # Create your views here.
 
 revenue = 0
@@ -28,11 +30,34 @@ class POSCreateView(CreateView):
     success_url = reverse_lazy("posindex")
     template_name = "inventory/createpurchase.html"
 
-    def get_initial(self):
-        
+    def get_initial(self): 
         initial_base= super(POSCreateView, self).get_initial()
         initial_base['item'] = MenuItem.objects.get(id=self.kwargs['pk'])
         return initial_base
+
+    #doesnt work, need to fix so that ingredients will be subtracted on purchase
+    def post(self, request, pk):
+         menu_item_id = request.POST["item"]
+         menu_item = MenuItem.objects.get(pk=menu_item_id)
+         requirements = menu_item.reciperequirement_set
+         purchase = Purchase(item=menu_item)
+         #ingredient count check -- could this be more efficient? 1 for loop not 2?
+         for requirement in requirements.all():
+             required_ingredient = requirement.ingredient
+             if required_ingredient.quantity >= requirement.quantity:
+                continue
+             else:
+                 messages.error(request, "Insufficient Ingredients")
+                 return redirect("posindex")
+         #ingredient decrement
+         for requirement in requirements.all():
+             required_ingredient = requirement.ingredient
+             required_ingredient.quantity -= requirement.quantity
+             required_ingredient.save() 
+            
+         purchase.save()
+         messages.success(request, "Purchase Made!")
+         return redirect("posindex")
 
 class PurchaseListView(ListView):
     model = Purchase
@@ -45,6 +70,12 @@ class PurchaseUpdateView(UpdateView):
     form_class = PurchaseCreateForm
     template_name = "inventory/updatepurchase.html"
     success_message = "Purchase Updated!"
+    success_url = reverse_lazy("purchaseindex")
+
+class PurchaseDeleteView(DeleteView):
+    model = Purchase
+    template_name = "inventory/deletepurchase.html"
+    success_message = "Purchase Deleted!"
     success_url = reverse_lazy("purchaseindex")
 
 class InventoryListView(ListView):

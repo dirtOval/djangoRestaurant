@@ -1,0 +1,10 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'purchaseindex' %}">Go Back</a>
+<form action="" method="post">
+    {%csrf_token%}
+<p>Are you sure you want to delete purchase of {{purchase.item}} on {{purchase.timestamp}}?</p>
+    <input type="submit" value="Confirm">
+</form>
+{% endblock %}

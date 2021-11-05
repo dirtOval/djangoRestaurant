@@ -7,9 +7,10 @@
 <a href="{% url 'purchaseindex' %}">View Purchase History</a>
 <br>
 <h3>Menu Items</h3>
+<div class="itembox">
 {% for item in menuitem_list %}
-    <a href="{% url 'poscreatepurchase' item.id %}"> {{item.name}} </a>
-    <br>
+    <a class="menuitem" href="{% url 'poscreatepurchase' item.id %}"> {{item.name}} </a>
 
 {% endfor %}
+</div>
 {% endblock %}

@@ -1,0 +1,27 @@
+body {
+    background-color: lightgrey;
+    font-family: sans-serif;
+    max-width: 600px;
+}
+
+a {
+    color: black;
+    font-size: 16px;
+}
+
+a:hover {
+    color: blue;
+}
+
+.menuitem {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px 5px 5px 5px;
+    white-space: nowrap;
+    
+}
+
+.itembox {
+    line-height: 28px;
+}
