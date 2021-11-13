@@ -5,6 +5,7 @@ from django.utils import timezone
 class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     quantity = models.FloatField()
+    max = models.FloatField(default=0)
     unit = models.CharField(max_length=15)
     price = models.FloatField()
 
@@ -38,6 +39,13 @@ class Purchase(models.Model):
 
     def __str__(self):
         return self.item.name
+
+class RevenueDay(models.Model):
+    day = models.DateField(default=timezone.now)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return self.day
 
     #THIS DOES NOT WORK. need to fix this.
     # @classmethod

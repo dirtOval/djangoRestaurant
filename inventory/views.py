@@ -35,7 +35,7 @@ class POSCreateView(CreateView):
         initial_base['item'] = MenuItem.objects.get(id=self.kwargs['pk'])
         return initial_base
 
-    #doesnt work, need to fix so that ingredients will be subtracted on purchase
+    #now it works, but i don't really understand it. figure it out, deirdre!
     def post(self, request, pk):
          menu_item_id = request.POST["item"]
          menu_item = MenuItem.objects.get(pk=menu_item_id)
