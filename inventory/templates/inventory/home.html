@@ -1,8 +1,29 @@
 {% extends "inventory/base.html" %}
+{% load mathfilters %}
 
 {% block content %}
-<h3>Daily Revenue: ${{revenue}}</h3>
-<a href="{% url 'posindex' %}">POS</a>
+<a href="{% url 'newuser' %}">Create New User</a>
 <br>
-<a href="{% url 'inventoryindex' %}">Inventory</a>
+<a href="{% url 'daycreate' %}">Start New Day?</a>
+<br>
+<a href="{% url 'revenuedayindex' %}">Sales By Day</a>
+<br>
+<a class="home-option-box" href="{% url 'posindex' %}">POS</a>
+<a class="home-option-box" href="{% url 'inventoryindex' %}">Inventory</a>
+<div class="home-bottom-box">
+    <span><b>Revenue:</b> ${{revenue.amount|floatformat:2}}</span>
+    <br>
+    <span><b>Ingredient Cost:</b> ${{revenue.cost|floatformat:2}}</span>
+    <br>
+    <span><b>Profit For {{revenue.day}}</b>: ${{profit|floatformat:2}}</span>
+</div>
+<div class="home-bottom-box">
+<h4>Ingredients Needing Restock:</h4>
+{% for ingredient in ingredient_list %}
+{% if ingredient.quantity < ingredient.max|div:2 %}
+<span> {{ingredient.name}} - {{ingredient.quantity}} / {{ingredient.max}} {{ingredient.unit}} </span>
+<br>
+{% endif %}
+{% endfor %}
+</div>
 {% endblock %}

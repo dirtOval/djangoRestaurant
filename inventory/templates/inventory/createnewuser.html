@@ -1,12 +1,11 @@
-{% extends 'inventory/base.html' %}
+{% include "inventory/base.html" %}
 
 {% block content %}
-<a href="{% url 'inventoryindex' %}">Go Back</a>
-<h3>Create Menu Item?</h3>
+<a href="{% url 'home' %}">Go Back</a>
+<h3>Create New User?</h3>
 <form action="" method="POST">
     {%csrf_token%}
     {{form.as_p}}
     <input type="submit" value="Create">
 </form>
-
 {% endblock %}

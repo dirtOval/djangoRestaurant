@@ -1,23 +1,30 @@
 {% extends 'inventory/base.html' %}
+{% load mathfilters %}
 
 {% block content %}
+<div class="main-inventory-box">
 <a href="{% url 'home' %}">Go Back</a>
 <br>
+<div class="ingredient-box">
 <h3>Ingredients:</h3>
 {% for ingredient in ingredient_list %}
 <a href="{% url 'ingredientupdate' ingredient.id %}">{{ingredient.name}}</a>
-<span>- {{ingredient.quantity}} {{ingredient.unit}}</span>
+<span>- {{ingredient.quantity}} / {{ingredient.max}} {{ingredient.unit}}</span>
+{% if ingredient.quantity < ingredient.max|div:2 %}
+<span> -- RESTOCK NEEDED</span>
+{% endif %}
 <br>
 {% endfor %}
-<p>------------------</p>
-<a href="{% url 'ingredientcreate' %}">Create New</a>
-
+<a class="add-plus" href="{% url 'ingredientcreate' %}">+</a>
+</div>
 <br>
+<div class="menu-item-box">
 <h3>Menu Items:</h3>
 {% for item in menu_item_list %}
 <a href="{% url 'menuitemupdate' item.id %}">{{item.name}}</a>
 <br>
 {% endfor %}
-<p>------------------</p>
-<a href="{% url 'menuitemcreate' %}">Create New</a>
+<a class="add-plus" href="{% url 'menuitemcreate' %}">+</a>
+</div>
+</div>
 {% endblock %}

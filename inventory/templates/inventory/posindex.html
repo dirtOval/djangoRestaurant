@@ -1,16 +1,18 @@
 {% extends 'inventory/base.html' %}
 
 {% block content %}
+<div class="main-pos-box">
 <a href="{% url 'home' %}">Go Back</a>
 <br>
-<h4>Daily Revenue: ${{revenue}}</h4>
+<h4>Revenue for {{revenue.day}}: ${{ revenue.amount|floatformat:2 }}</h4>
 <a href="{% url 'purchaseindex' %}">View Purchase History</a>
 <br>
-<h3>Menu Items</h3>
+<h3 class="menu-items-title">Menu Items:</h3>
 <div class="itembox">
-{% for item in menuitem_list %}
+{% for item in menuitem_list %} 
     <a class="menuitem" href="{% url 'poscreatepurchase' item.id %}"> {{item.name}} </a>
 
 {% endfor %}
+</div>
 </div>
 {% endblock %}

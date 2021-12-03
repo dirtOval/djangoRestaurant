@@ -33,19 +33,27 @@ class RecipeRequirement(models.Model):
     def __str__(self):
         return self.menu_item.name + self.ingredient.name
 
+class RevenueDay(models.Model):
+    day = models.DateField(default=timezone.now)
+    amount = models.FloatField(default=0)
+    cost = models.FloatField(default=0)
+    def __str__(self):
+        return str(self.day)
+
 class Purchase(models.Model):
+
+    def get_default():
+        default = RevenueDay.objects.latest('day')
+        default.__repr__()
+        return default.pk
+
     item = models.ForeignKey('MenuItem', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now)
+    day = models.ForeignKey('RevenueDay', on_delete=models.CASCADE, default=get_default)
+
 
     def __str__(self):
         return self.item.name
-
-class RevenueDay(models.Model):
-    day = models.DateField(default=timezone.now)
-    amount = models.FloatField()
-
-    def __str__(self):
-        return self.day
 
     #THIS DOES NOT WORK. need to fix this.
     # @classmethod

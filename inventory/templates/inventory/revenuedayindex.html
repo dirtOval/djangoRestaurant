@@ -1,0 +1,15 @@
+{% include 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'home' %}">Go Back</a>
+<br>
+<h3>Sales By Day:</h3>
+{% for day in revenueday_list %}
+<a href="{% url 'purchasesbyday' day.id %}"> {{day.day}}</a><span> - ${{day.amount|floatformat:2}} </span>
+<a href="{% url 'revenuedayupdate' day.id %}">Edit</a>
+{% if day != current %}
+<a href="{% url 'revenuedaydelete' day.id %}">Delete</a>
+{% endif %}
+<br>
+{% endfor %}
+{% endblock %}

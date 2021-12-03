@@ -1,9 +1,17 @@
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
 urlpatterns = [
+    path("accounts/", include("django.contrib.auth.urls"), name="login"),
     path("", views.homepage, name="home"),
+    path("logout", views.logout_view, name="logout"),
+    path("newuser", views.NewUserView.as_view(), name="newuser"),
+    path("day/create", views.RevenueDayCreateView.as_view(), name="daycreate"),
+    path("day/index", views.RevenueDayListView.as_view(), name="revenuedayindex" ),
+    path("day/<pk>", views.PurchasesByDayView.as_view(), name="purchasesbyday"),
+    path("day/<pk>/update/", views.RevenueDayUpdateView.as_view(), name="revenuedayupdate"),
+    path("day/<pk>/delete/", views.RevenueDayDeleteView.as_view(), name="revenuedaydelete"),
     path("pos/", views.POSListView.as_view(), name="posindex"),
     path("pos/purchase/index/", views.PurchaseListView.as_view(), name="purchaseindex"),
     path("pos/<pk>/purchase/", views.POSCreateView.as_view(), name="poscreatepurchase"),

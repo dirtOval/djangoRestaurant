@@ -1,0 +1,8 @@
+<h2>Please login</h2>
+<form class="login" method="post">
+    <div>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="login"/>
+    </div>
+</form>

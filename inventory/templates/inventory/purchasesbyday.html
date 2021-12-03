@@ -1,0 +1,14 @@
+{% include 'inventory/base.html' %}
+
+<a href="{% url 'revenuedayindex' %}">Go Back</a>
+<br>
+<h3>Purchases on {{time.day}}:</h3>
+{% for purchase in purchases %}
+<span> {{purchase.item}} - ${{purchase.item.price}} - {{purchase.timestamp}}</span>
+<a href="{% url 'purchaseupdate' purchase.id %}">Edit</a>
+<a href="{% url 'purchasedelete' purchase.id %}">Delete</a>
+<br>
+{% endfor %}
+{% if not purchases %}
+<span>No purchases!</span>
+{% endif %}

@@ -9,8 +9,15 @@
 {% endblock %}
 </head>
 <body>
-<h1>Welcome To Django Delights!</h1>
-
+<h1 class="restaurant-title">Welcome To Django Delights!</h1>
+{% if request.user.is_authenticated %}
+<div class="greeting">
+<span>Hello, {{request.user.username}}!</span>
+<br>
+<a href="{% url 'logout' %}">Log Out</a>
+</div>
+<br>
+{% endif %}
 {% if messages %}
     <ul class="messages">
     {% for message in messages %}

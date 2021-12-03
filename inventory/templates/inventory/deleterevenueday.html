@@ -1,0 +1,10 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<a href="{% url 'revenuedayindex' %}">Go Back</a>
+<form action="" method="post">
+    {% csrf_token %}
+<p>Are you sure you want to delete {{revenueday.day}}?</p>
+    <input type="submit" value="Confirm">
+</form>
+{% endblock %}
